@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide | Stop Drowning in Tasks</title>
+    <style>
+        :root {
+            --primary: #2563EB; /* Professional Blue */
+            --dark: #0F172A;
+            --light: #F8FAFC;
+            --accent: #F59E0B; /* Attention grabbing orange */
+            --text-main: #334155;
+            --text-light: #64748B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        
+        body { background-color: var(--light); color: var(--text-main); line-height: 1.6; }
+
+        /* HEADER */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--dark); text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--text-main); margin-left: 2rem; font-weight: 500; }
+        .btn-nav { background: var(--dark); color: white !important; padding: 0.5rem 1.2rem; border-radius: 6px; transition: opacity 0.2s; }
+        .btn-nav:hover { opacity: 0.9; }
+
+        /* HERO SECTION */
+        .hero { text-align: center; padding: 5rem 1rem; max-width: 800px; margin: 0 auto; }
+        .tagline { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 1rem; display: block; }
+        h1 { font-size: 3.5rem; line-height: 1.1; color: var(--dark); margin-bottom: 1.5rem; letter-spacing: -1px; }
+        .subtitle { font-size: 1.25rem; color: var(--text-light); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        .cta-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .btn { padding: 1rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: transform 0.1s; }
+        .btn:active { transform: scale(0.98); }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3); }
+        .btn-secondary { background: white; color: var(--text-main); border: 1px solid #cbd5e1; }
+
+        /* FEATURES GRID */
+        .features { padding: 5rem 5%; background: white; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto; }
+        .feature-card { padding: 2rem; background: var(--light); border-radius: 12px; border: 1px solid #e2e8f0; }
+        .feature-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+        .feature-card h3 { margin-bottom: 0.5rem; color: var(--dark); }
+
+        /* PRICING / UPSELL */
+        .pricing { padding: 5rem 5%; background: var(--dark); color: white; text-align: center; }
+        .pricing h2 { margin-bottom: 3rem; font-size: 2.5rem; }
+        .pricing-grid { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+        
+        .plan { background: rgba(255,255,255,0.05); padding: 2.5rem; border-radius: 16px; flex: 1; min-width: 300px; text-align: left; border: 1px solid rgba(255,255,255,0.1); }
+        .plan.pro { background: white; color: var(--dark); transform: scale(1.05); border: none; position: relative; }
+        .plan.pro::before { content: "RECOMMENDED"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; border-radius: 20px; }
+        
+        .price { font-size: 2.5rem; font-weight: 800; margin: 1rem 0; display: block; }
+        .price span { font-size: 1rem; font-weight: 400; color: #64748B; }
+        .plan-features { list-style: none; margin: 2rem 0; }
+        .plan-features li { margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; }
+        .plan-features li::before { content: "✓"; position: absolute; left: 0; color: var(--primary); }
+        
+        /* SIGN UP FORM */
+        .signup-section { background: #EEF2FF; padding: 5rem 1rem; text-align: center; }
+        .form-container { background: white; max-width: 500px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .input-group { display: flex; gap: 10px; margin-top: 1rem; flex-direction: column; }
+        input[type="email"] { padding: 1rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; width: 100%; }
+        .btn-submit { background: var(--dark); color: white; border: none; padding: 1rem; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .pricing-grid { flex-direction: column; }
+            .plan.pro { transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <a href="#" class="logo">Guide.</a>
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#signup" class="btn-nav">Start Free Trial</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <span class="tagline">Momentum, not Maintenance</span>
+        <h1>Stop Drowning in <br> Your To-Do List.</h1>
+        <p class="subtitle">A complete system to clear the clutter, overcome mental blocks, and focus on the 3 things that actually matter today.</p>
+        <div class="cta-group">
+            <a href="#signup" class="btn btn-primary">Start 14-Day Free Trial</a>
+            <!-- Direct link to your existing demo/download -->
+            <a href="https://blog.nextfive.in/demo/guide/" class="btn btn-secondary">Try Offline Demo</a>
+        </div>
+    </section>
+
+    <!-- Problem / Solution Grid -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Why standard lists fail you</h2>
+            <p>You have 79 items on your list. You'll do none of them.</p>
+        </div>
+        <div class="grid">
+            <div class="feature-card">
+                <span class="feature-icon">🎯</span>
+                <h3>The Power of 3</h3>
+                <p>Guide forces a strict limit: 3 tasks per day linked to 1 primary goal. Everything else goes into the "Task Bowl"—out of sight, out of mind.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🧠</span>
+                <h3>Mindset Playbooks</h3>
+                <p>Stuck? Bored? Anxious? Guide isn't just a list; it's a coach. Use built-in playbooks to navigate mental hurdles and get back to work.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>Instant Routines</h3>
+                <p>Stop wasting energy deciding what to do. Load pre-set "Morning Kickstart" or "Weekly Review" routines with a single click.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The "Upsell" Table -->
+    <section class="pricing" id="pricing">
+        <h2>Choose your Focus</h2>
+        <div class="pricing-grid">
+            <!-- Free / Offline Plan -->
+            <div class="plan">
+                <h3>Guide Local</h3>
+                <span class="price">$0 <span>/ forever</span></span>
+                <p style="color: #cbd5e1; font-size: 0.9rem;">Perfect for privacy-first individuals.</p>
+                <ul class="plan-features" style="color: #cbd5e1;">
+                    <li>100% Offline (HTML File)</li>
+                    <li>No Account Required</li>
+                    <li>The "Task Bowl" System</li>
+                    <li>Standard Mindset Playbooks</li>
+                    <li>Data stored on your device</li>
+                </ul>
+                <a href="https://blog.nextfive.in/demo/guide/" class="btn btn-secondary" style="width: 100%; display:inline-block; text-align:center;">Use Now</a>
+            </div>
+
+            <!-- The "Want" / Sign Up Plan -->
+            <div class="plan pro">
+                <h3>Guide Cloud</h3>
+                <span class="price">$5 <span>/ month</span></span>
+                <p style="color: #64748B; font-size: 0.9rem;">For those who need sync & advanced tools.</p>
+                <ul class="plan-features">
+                    <li><strong>Everything in Local, plus:</strong></li>
+                    <li>Multi-device Sync (Mobile & Desktop)</li>
+                    <li>AI-Generated Playbooks</li>
+                    <li>History & Momentum Analytics</li>
+                    <li>Priority Support</li>
+                </ul>
+                <a href="#signup" class="btn btn-primary" style="width: 100%; display:inline-block; text-align:center;">Start Free Trial</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sign Up Form -->
+        <section class="signup-section" id="signup">
+            <h2>Start your 14-day Free Trial</h2>
+            <p>Experience the focus of Guide with Cloud Sync.</p>
+
+            <div class="form-container">
+
+                <!-- 1. The Success Message (Hidden by default) -->
+                <div id="success-message" style="display:none; color: green; margin-top: 1rem;">
+                    <h3>🎉 You're on the list!</h3>
+                    <p>We'll email you as soon as the Cloud beta opens.</p>
+                </div>
+
+                <!-- 2. The Form -->
+                <form id="waitlist-form"
+                    action="https://docs.google.com/forms/d/e/1FAIpQLSd5xZagtGkqjWPlpkbJ6r19ilMclzUXIisFVkNaSwNDTB4dBg/formResponse"
+                    method="POST"
+                    target="hidden_iframe"
+                    onsubmit="document.getElementById('success-message').style.display='block'; document.getElementById('waitlist-form').style.display='none';">
+
+                    <div class="input-group">
+                        <!-- Replace 'entry.123456789' with your actual Entry ID -->
+                        <input type="email" name="entry.1045781291" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn-submit">Join Waitlist</button>
+                    </div>
+
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 1rem;">
+                        No credit card required.
+                    </p>
+                </form>
+
+                <!-- 3. Trapping the Google Redirect -->
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+            </div>
+        </section>
+    <footer style="text-align: center; padding: 2rem; color: var(--text-light); font-size: 0.9rem;">
+        <p>&copy; 2025 Guide - A NextFive offering</p>
+    </footer>
+
+</body>
+</html>
