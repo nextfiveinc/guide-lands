@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide | Stop Drowning in Tasks</title>
+    <title>Guide | Make Progress, Not Just Lists</title>
     <style>
         :root {
             /* 1. PALETTE DEFINITIONS (Literal Colors) */
             --blue-600: #2563EB;
+            --slate-950: #020617; /* Very Dark Slate */
             --slate-900: #0F172A;
             --slate-800: #1E293B;
             --slate-50:  #F8FAFC;
@@ -22,15 +23,20 @@
             --primary: var(--blue-600);
             --accent: var(--amber-500);
 
-            --bg-body: var(--slate-50);
+            /* Section Backgrounds */
+            --bg-section-base: var(--slate-50);  /* Soft Gray */
+            --bg-section-alt: var(--white);      /* Pure White */
+            --bg-section-contrast: var(--slate-900); /* Special Pricing BG */
+
+            /* Element Backgrounds */
             --bg-nav: var(--white);
             --bg-card: var(--white);
-            --bg-section-contrast: var(--slate-900); /* Pricing section bg */
             --bg-input: var(--white);
 
+            /* Typography */
             --text-main: var(--slate-700);
             --text-muted: var(--slate-600);
-            --text-contrast: var(--white); /* Text inside contrast sections */
+            --text-contrast: var(--white);
 
             --border-color: #e2e8f0;
             --shadow-subtle: 0 2px 10px rgba(0,0,0,0.05);
@@ -38,12 +44,17 @@
 
         /* DARK MODE OVERRIDES */
         body.dark-mode {
-            --bg-body: var(--slate-900);
-            --bg-nav: var(--slate-900); /* Matches body or slightly lighter */
+            /* Section Backgrounds */
+            --bg-section-base: var(--slate-900);
+            --bg-section-alt: var(--slate-950); /* Slightly darker for depth */
+            --bg-section-contrast: var(--slate-800);
+
+            /* Element Backgrounds */
+            --bg-nav: var(--slate-900);
             --bg-card: var(--slate-800);
-            --bg-section-contrast: var(--slate-800); /* Pricing blends in more */
             --bg-input: var(--slate-900);
 
+            /* Typography */
             --text-main: var(--slate-100);
             --text-muted: var(--slate-300);
             --text-contrast: var(--slate-100);
@@ -54,7 +65,12 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
 
-        body { background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body { background-color: var(--bg-section-base); color: var(--text-main); line-height: 1.6; }
 
         /* HEADER */
         header {
@@ -64,13 +80,17 @@
             padding: 1.5rem 5%;
             background: var(--bg-nav);
             box-shadow: var(--shadow-subtle);
-            position: relative;
+            /*position: relative;*/
+            /*z-index: 10;*/
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         .logo { font-weight: 800; font-size: 1.5rem; color: var(--text-main); text-decoration: none; }
 
         .nav-container { display: flex; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text-main); margin-left: 2rem; font-weight: 500; }
-        .btn-nav { background: var(--text-main); color: var(--bg-body) !important; padding: 0.5rem 1.2rem; border-radius: 6px; transition: opacity 0.2s; }
+        .btn-nav { background: var(--text-main); color: var(--bg-section-base) !important; padding: 0.5rem 1.2rem; border-radius: 6px; transition: opacity 0.2s; }
         .btn-nav:hover { opacity: 0.9; }
 
         /* THEME TOGGLE */
@@ -87,10 +107,17 @@
             align-items: center;
             gap: 5px;
         }
-        .theme-toggle:hover { background: var(--bg-body); }
+        .theme-toggle:hover { background: var(--bg-section-base); }
 
-        /* HERO SECTION */
-        .hero { text-align: center; padding: 5rem 1rem; max-width: 800px; margin: 0 auto; }
+        /* HERO SECTION (Base BG) */
+        .hero {
+            text-align: center;
+            padding: 5rem 1rem;
+            max-width: 100%;
+            background: var(--bg-section-base);
+        }
+        .hero-inner { max-width: 800px; margin: 0 auto; }
+
         .tagline { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 1rem; display: block; }
         h1 { font-size: 3.5rem; line-height: 1.1; color: var(--text-main); margin-bottom: 1.5rem; letter-spacing: -1px; }
         .subtitle { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
@@ -101,17 +128,94 @@
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3); }
         .btn-secondary { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); }
 
-        /* FEATURES GRID */
-        .features { padding: 5rem 5%; background: var(--bg-card); }
+        .hero-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; }
+
+        /* CONTRAST SECTION (Alt BG) */
+        .contrast-section {
+            margin: 0;
+            padding: 60px 20px;
+            background-color: var(--bg-section-alt); /* Alternating Color */
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .contrast-container {
+            max-width: 768px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+            background: var(--bg-card); /* Card pops against Alt BG */
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .col h3 {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+        }
+
+        .task-list { list-style: none; }
+        .task-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .task-list li:last-child { border-bottom: none; }
+        .task-list li::before { margin-right: 12px; }
+
+        .shallow h3 { color: var(--text-muted); }
+        .shallow li::before { content: "⭕"; opacity: 0.4; font-size: 0.8em; }
+        .shallow { opacity: 0.7; }
+
+        .deep h3 { color: var(--primary); }
+        .deep li::before { content: "🎯"; font-size: 1em; }
+        .deep { font-weight: 500; color: var(--text-main); }
+
+        /* FEATURES GRID (Base BG) */
+        .features { padding: 5rem 5%; background: var(--bg-section-base); } /* Back to Base */
         .section-header { text-align: center; margin-bottom: 4rem; }
+
+        /* ROTATING TEXT STYLES */
+        .rotating-text-wrapper {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .fade-text {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-text.hidden { opacity: 0; transform: translateY(10px); }
+
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto; }
-        .feature-card { padding: 2rem; background: var(--bg-body); border-radius: 12px; border: 1px solid var(--border-color); }
+        .feature-card { padding: 2rem; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--shadow-subtle); }
         .feature-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
         .feature-card h3 { margin-bottom: 0.5rem; color: var(--text-main); }
         .feature-card p { color: var(--text-muted); }
 
-        /* PRICING / UPSELL */
-        /* Note: This section has a contrast background by default */
+        /* PRICING (Contrast BG) */
         .pricing { padding: 5rem 5%; background: var(--bg-section-contrast); color: var(--text-contrast); text-align: center; transition: border 0.3s; }
         body.dark-mode .pricing { border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
 
@@ -120,7 +224,6 @@
 
         .plan { background: rgba(255,255,255,0.05); padding: 2.5rem; border-radius: 16px; flex: 1; min-width: 300px; text-align: left; border: 1px solid rgba(255,255,255,0.1); color: var(--text-contrast); }
 
-        /* The Pro Plan Card */
         .plan.pro { background: var(--bg-card); color: var(--text-main); transform: scale(1.05); border: 1px solid var(--border-color); position: relative; }
         .plan.pro::before { content: "RECOMMENDED"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; border-radius: 20px; }
 
@@ -131,8 +234,8 @@
         .plan-features li { margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; }
         .plan-features li::before { content: "✓"; position: absolute; left: 0; color: var(--primary); }
 
-        /* SIGN UP FORM */
-        .signup-section { background: var(--bg-body); padding: 5rem 1rem; text-align: center; }
+        /* SIGN UP FORM (Alt BG) */
+        .signup-section { background: var(--bg-section-alt); padding: 5rem 1rem; text-align: center; border-top: 1px solid var(--border-color); }
         .form-container { background: var(--bg-card); max-width: 500px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-subtle); border: 1px solid var(--border-color); }
         .input-group { display: flex; gap: 10px; margin-top: 1rem; flex-direction: column; }
 
@@ -146,38 +249,30 @@
             width: 100%;
         }
 
-        .btn-submit { background: var(--text-main); color: var(--bg-body); border: none; padding: 1rem; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: opacity 0.2s; }
+        .btn-submit { background: var(--text-main); color: var(--bg-section-base); border: none; padding: 1rem; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: opacity 0.2s; }
         .btn-submit:hover { opacity: 0.9; }
 
-        footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem; background: var(--bg-body); }
+        /* FOOTER (Base BG) */
+        footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem; background: var(--bg-section-base); border-top: 1px solid var(--border-color); }
 
         /* MOBILE RESPONSIVENESS */
         @media (max-width: 768px) {
             header {
+                position: relative; /* Disable sticky on mobile */
                 flex-direction: column;
                 gap: 1rem;
                 padding: 1rem 5%;
             }
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                width: 100%;
-            }
-            .nav-links {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-                width: 100%;
-            }
+            header { flex-direction: column; gap: 1rem; padding: 1rem 5%; }
+            .nav-container { flex-direction: column; gap: 1rem; width: 100%; }
+            .nav-links { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; }
             .nav-links a { margin-left: 0; }
             .theme-toggle { margin-left: 0; margin-top: 0.5rem; }
-
             h1 { font-size: 2.5rem; }
             .hero { padding: 3rem 1rem; }
-
             .pricing-grid { flex-direction: column; }
             .plan.pro { transform: none; }
+            .comparison-grid { grid-template-columns: 1fr; gap: 30px; padding: 20px; }
         }
     </style>
 </head>
@@ -188,6 +283,7 @@
         <a href="#" class="logo">Guide.</a>
         <div class="nav-container">
             <nav class="nav-links">
+                <a href="#problem">Why</a>
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#signup" class="btn-nav">Start Free Trial</a>
@@ -198,70 +294,111 @@
         </div>
     </header>
 
-    <!-- Hero -->
+    <!-- Hero (Base) -->
     <section class="hero">
-        <span class="tagline">Momentum, not Maintenance</span>
-        <h1>Stop Drowning in <br> Your To-Do List.</h1>
-        <p class="subtitle">A complete system to clear the clutter, overcome mental blocks, and focus on the 3 things that actually matter today.</p>
-        <h3 style="margin-bottom: 15px; font-size: 1.2rem;">Try the full app instantly</h3>
-        <div class="cta-group">
-            <a href="https://blog.nextfive.in/demo/guide/" class="btn btn-primary">Launch Guide</a>
-            <!--a href="#pricing" class="btn btn-secondary">Get Guide Cloud</a-->
+        <div class="hero-inner">
+            <span class="tagline">Make Progress, Not Just Lists</span>
+            <h1>Stop Drowning in <br> Your To-Do List.</h1>
+            <p class="subtitle">Guide helps you clear the clutter and advance your goals, 3 steps at a time. </p>
+            <h3 style="margin-bottom: 15px; font-size: 1.2rem;">Try the full app instantly</h3>
+            <div class="cta-group">
+                <a href="https://demo.nextfive.in/guide/" class="btn btn-primary">Launch Guide</a>
+            </div>
+            <br/>
+            <p class="hero-note">
+                        Runs entirely in your browser. No login. No server. No installation.
+                        <br>Your data stays on this device.
+            </p>
         </div>
-        <br/>
-        <p class="hero-note">
-                    Runs entirely in your browser. No login. No server. No installation.
-                    <br>Your data stays on this device.
-        </p>
     </section>
 
-    <!-- Problem / Solution Grid -->
-    <section class="features" id="features">
-        <div class="section-header">
-            <h2>Why standard lists fail you</h2>
-            <p style="color: var(--text-muted)">You have 79 items on your list. You'll do none of them.</p>
+    <!-- Problem Grid (Alt) -->
+    <section class="contrast-section" id="problem">
+        <div class="contrast-container">
+
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <h2>Why standard lists fail you</h2>
+                <div class="rotating-text-wrapper">
+                    <p id="rotating-text" class="fade-text">You have 79 items on your list. You'll do none of them.</p>
+                </div>
+            </div>
+
+            <h2 style="font-size: 1.75rem; margin-top: 2rem;">Stop mixing your ambition with your chores.</h2>
+            <p style="margin-top: 10px; font-size: 1.1rem;">Most apps treat "Buy Milk" and "Write Strategy Doc" as equals. They aren't.</p>
+
+            <div class="comparison-grid">
+                <div class="col shallow">
+                    <h3>The Noise (Other Apps)</h3>
+                    <ul class="task-list">
+                        <li>Respond to 5 emails</li>
+                        <li>Pay electricity bill</li>
+                        <li>Update Jira ticket #429</li>
+                        <li>Buy cat food</li>
+                    </ul>
+                </div>
+                <div class="col deep">
+                    <h3>The Signal (Guide)</h3>
+                    <ul class="task-list">
+                        <li>Draft Q4 Promotion Docket</li>
+                        <li>Write Chapter 1 of Book</li>
+                        <li>Code MVP for Side Project</li>
+                        <li>Research Home Loan rates</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <p class="subtitle" style="margin-top: 20px;">
+                        Keep your groceries in Keep. Keep your bug tickets in Jira.<br>
+                        Use <em>Guide for the <strong>Deep Work</strong></em>  that advances your career and  life.
+                </p>
+            </div>
         </div>
+    </section>
+
+    <!-- Solution Grid (Base) -->
+    <section class="features" id="features">
         <div class="grid">
             <div class="feature-card">
                 <span class="feature-icon">🎯</span>
                 <h3>The Power of 3</h3>
-                <p>Guide forces a strict limit: 3 tasks per day linked to 1 primary goal. Everything else goes into the "Task Bowl"—out of sight, out of mind.</p>
+                <p>Guide forces a strict limit: 3 tasks per day. You cannot add a 4th until you finish one. Focus on the now, not the anxiety of next week. </p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">🧠</span>
-                <h3>Mindset Playbooks</h3>
-                <p>Stuck? Bored? Anxious? Guide isn't just a list; it's a coach. Use built-in playbooks to navigate mental hurdles and get back to work.</p>
+                <span class="feature-icon">🥣</span>
+                <h3>The Task Bowl</h3>
+                <p>Everything else - the brain dump, the "someday" items - goes into a hidden backlog. It keeps your mental space quiet until you are ready to fish something out.</p>
             </div>
             <div class="feature-card">
-                <span class="feature-icon">⚡</span>
-                <h3>Instant Routines</h3>
-                <p>Stop wasting energy deciding what to do. Load pre-set "Morning Kickstart" or "Weekly Review" routines with a single click.</p>
+                <span class="feature-icon">✨</span>
+                <h3>On-Demand Clarity</h3>
+                <p>Don't know where to start? Just ask. Guide breaks vague goals into tiny steps, identifies blind spots, and tells you exactly what to focus on next.</p>
             </div>
         </div>
     </section>
 
-    <!-- The "Upsell" Table -->
+    <!-- The "Upsell" Table (Contrast) -->
     <section class="pricing" id="pricing">
-        <h2>Choose your Focus</h2>
+        <h2>Choose your plan</h2>
         <div class="pricing-grid">
             <!-- Free / Offline Plan -->
-            <div class="plan">
-                <h3>Guide Local</h3>
+            <div class="plan pro">
+                <h3>Guide Basic: Free, Private, No-Login.</h3>
                 <span class="price">$0 <span>/ forever</span></span>
-                <p style="opacity: 0.7; font-size: 0.9rem;">Perfect for privacy-first individuals.</p>
+                <p style="opacity: 0.7; font-size: 0.9rem;">Perfect for most. And yes, we recommend this free option first.</p>
                 <ul class="plan-features" style="opacity: 0.9;">
                     <li>100% Offline (HTML File)</li>
                     <li>No Account Required</li>
                     <li>The "Task Bowl" System</li>
                     <li>Standard Mindset Playbooks</li>
                     <li>Data stored on your device</li>
-                    <br><br>
+                    <li>AI ready. You bring your key. <a href="mailto:guide@nextfive.simplelogin.com ?subject=About%20Guide:%20Wanted%20to%20"> <em>(Ask us how)</em> </a></li>
                 </ul>
-                <a href="https://blog.nextfive.in/demo/guide/" class="btn btn-secondary" style="width: 100%; display:inline-block; text-align:center;">Use Now</a>
+                <a href="https://demo.nextfive.in/guide/" class="btn btn-primary" style="width: 100%; display:inline-block; text-align:center;">Use Now</a>
             </div>
 
             <!-- The "Want" / Sign Up Plan -->
-            <div class="plan pro">
+            <div class="plan">
                 <h3>Guide Cloud</h3>
                 <span class="price">$5 <span>/ month</span></span>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">For those who need sync & advanced tools.</p>
@@ -273,47 +410,45 @@
                     <li>History & Momentum Analytics</li>
                     <li>Priority Support</li>
                 </ul>
-                <a href="#signup" class="btn btn-primary" style="width: 100%; display:inline-block; text-align:center;">Start Free Trial</a>
+                <a href="#signup" class="btn btn-secondary" style="width: 100%; display:inline-block; text-align:center;">Tell me more!</a>
             </div>
         </div>
     </section>
 
-    <!-- Sign Up Form -->
-        <section class="signup-section" id="signup">
-            <h2>Register for Guide Cloud</h2>
-            <p style="color: var(--text-muted)">Experience the focus of Guide with Cloud Sync. AI included.</p>
+    <!-- Sign Up Form (Alt) -->
+    <section class="signup-section" id="signup">
+        <h2>Register for Guide Cloud</h2>
+        <p style="color: var(--text-muted)">Experience the focus of Guide with Cloud Sync. AI included.</p>
 
-            <div class="form-container">
+        <div class="form-container">
+            <!-- 1. The Success Message (Hidden by default) -->
+            <div id="success-message" style="display:none; color: green; margin-top: 1rem;">
+                <h3>🎉 You're on the list!</h3>
+                <p>We'll email you as soon as the Cloud beta opens.</p>
+            </div>
 
-                <!-- 1. The Success Message (Hidden by default) -->
-                <div id="success-message" style="display:none; color: green; margin-top: 1rem;">
-                    <h3>🎉 You're on the list!</h3>
-                    <p>We'll email you as soon as the Cloud beta opens.</p>
+            <!-- 2. The Form -->
+            <form id="waitlist-form"
+                action="https://docs.google.com/forms/d/e/1FAIpQLSd5xZagtGkqjWPlpkbJ6r19ilMclzUXIisFVkNaSwNDTB4dBg/formResponse"
+                method="POST"
+                target="hidden_iframe"
+                onsubmit="document.getElementById('success-message').style.display='block'; document.getElementById('waitlist-form').style.display='none';">
+
+                <div class="input-group">
+                    <input type="email" name="entry.1045781291" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn-submit">Join Waitlist</button>
                 </div>
 
-                <!-- 2. The Form -->
-                <form id="waitlist-form"
-                    action="https://docs.google.com/forms/d/e/1FAIpQLSd5xZagtGkqjWPlpkbJ6r19ilMclzUXIisFVkNaSwNDTB4dBg/formResponse"
-                    method="POST"
-                    target="hidden_iframe"
-                    onsubmit="document.getElementById('success-message').style.display='block'; document.getElementById('waitlist-form').style.display='none';">
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">
+                    No credit card required.
+                </p>
+            </form>
 
-                    <div class="input-group">
-                        <!-- Replace 'entry.123456789' with your actual Entry ID -->
-                        <input type="email" name="entry.1045781291" placeholder="Enter your email address" required>
-                        <button type="submit" class="btn-submit">Join Waitlist</button>
-                    </div>
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+        </div>
+    </section>
 
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">
-                        No credit card required.
-                    </p>
-                </form>
-
-                <!-- 3. Trapping the Google Redirect -->
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-            </div>
-        </section>
+    <!-- Footer (Base) -->
     <footer>
         <p>&copy; 2025 Guide - A NextFive offering</p>
     </footer>
@@ -336,13 +471,35 @@
         toggleBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             const isDark = body.classList.contains('dark-mode');
-
-            // Update icon
             toggleIcon.textContent = isDark ? '☀️' : '🌙';
-
-            // Save preference
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
+
+        // Rotating Text Logic
+        const textElement = document.getElementById('rotating-text');
+        const messages = [
+            "You have 79 items on your list. You'll do none of them.",
+            "Outlook emails, Slack messages, Jira tickets: their priorities, not yours.",
+            "You are mixing chores with real work.",
+            "You color-coded your tasks, tagged them, filed them... and forgot them."
+        ];
+
+        let msgIndex = 0;
+
+        function rotateText() {
+            // Fade out
+            textElement.classList.add('hidden');
+
+            // Wait for fade out (500ms), then swap text and fade in
+            setTimeout(() => {
+                msgIndex = (msgIndex + 1) % messages.length;
+                textElement.textContent = messages[msgIndex];
+                textElement.classList.remove('hidden');
+            }, 1000);
+        }
+
+        // Rotate every 4 seconds
+        setInterval(rotateText, 4000);
     </script>
 </body>
 </html>
